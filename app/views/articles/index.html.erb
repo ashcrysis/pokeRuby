@@ -1,0 +1,18 @@
+<!-- app/views/articles/index.html.erb -->
+<h1>Hello trainers!<h1>
+<h1>This is <%= @pokemon_name.capitalize  %> !</h1>
+<h1>Types: <%= @pokemon_type%> !</h1>
+<%= form_tag articles_path, method: :get do %>
+  <%= text_field_tag :pokemon_name, params[:pokemon_name], placeholder: "Enter Pokemon name", id: "pokemon_name_input"  %>
+  <%= submit_tag "Search" ,onClick: "clearInput()"%>
+<% end %>
+<script>
+    function clearInput() {
+        setTimeout(function() {
+            document.getElementById("pokemon_name_input").value = "";
+    }, 500);
+  }
+</script>
+<%= image_tag @pokemon_image_url, alt: @pokemon_name, style: "width: 400px; height: auto; image-rendering: pixelated;" %>
+
+<h1><%= @flavor_text%></h1>
