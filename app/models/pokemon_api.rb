@@ -11,14 +11,15 @@ class PokemonApi
     response = HTTParty.get("https://pokeapi.co/api/v2/pokemon/#{pokemon.downcase}")
     if response.code == 200 # Check if the request was successful
       data = JSON.parse(response.body)
-      image_url = data['sprites']['front_default']
+      sprite_url = data['sprites']['front_default']
       pokemon_name = data['name']
       type = response['types'][0]['type']['name']
       description = HTTParty.get("https://pokeapi.co/api/v2/pokemon-species/#{response['id']}")['flavor_text_entries'][0]['flavor_text']
       if response['types'].length > 1
         type += ", " +response['types'][1]['type']['name']
       end
-      return image_url, pokemon_name,type,description
+      image = "https://img.pokemondb.net/artwork/#{pokemon_name}.jpg"
+      return image, pokemon_name,type,description
     else
       # If the request was not successful, return a default image URL and an error message
       default_image_url = 'https://example.com/default_image.png'
