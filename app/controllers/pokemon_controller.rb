@@ -11,7 +11,18 @@ class PokemonController < ApplicationController
       sprite_url = data['sprites']['front_default']
       pokemon_name = data['name']
       type = response['types'][0]['type']['name']
-      description = HTTParty.get("https://pokeapi.co/api/v2/pokemon-species/#{response['id']}")['flavor_text_entries'][0]['flavor_text']
+      description_call = HTTParty.get("https://pokeapi.co/api/v2/pokemon-species/#{data['id']}")
+      species_data = JSON.parse(description_call.body)
+
+      english_description = species_data['flavor_text_entries'].find do |entry|
+        entry['language']['name'] == 'en'
+      end
+
+      if english_description
+        description = english_description['flavor_text']
+      else
+        description = "English description not found."
+      end
 
       if response['types'].length > 1
         type += ", " +response['types'][1]['type']['name']

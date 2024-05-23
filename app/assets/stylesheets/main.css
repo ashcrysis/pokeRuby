@@ -49,8 +49,8 @@ input[type="submit"]:hover {
 }
 
 #pokemon_image {
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: auto;
     image-rendering: pixelated;
     margin: 20px 0;
     mix-blend-mode: multiply;
