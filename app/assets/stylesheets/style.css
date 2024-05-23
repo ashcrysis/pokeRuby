@@ -1,0 +1,59 @@
+body {
+    background-image: url('Frame\ 2.png'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+}
+
+h1 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+#pokemon_name_input {
+    padding: 8px;
+    border: 2px solid #fff;
+    background-color: #1e1e1e;
+    color: white;
+    font-size: 16px;
+}
+#pokemon_name
+{
+    margin-top: 15px;
+}
+#pokemon_type{
+margin-top:55px;
+}
+#pokemon_name_input::placeholder {
+    color: #ccc;
+    
+}
+
+#pokemon_name_input:focus {
+    outline: none;
+    border-color: #ffcc00;
+}
+
+input[type="submit"] {
+    padding: 8px 20px;
+    background-color: #ffcc00;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #ffdb4d;
+}
+
+#pokemon_image {
+    width: 400px;
+    height: auto;
+    image-rendering: pixelated;
+    margin: 20px 0;
+}
+
+.flavor-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
