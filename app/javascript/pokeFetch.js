@@ -34,19 +34,28 @@ function displayResults(pokemonList) {
         card.classList.add('card');
 
         const name = document.createElement('h2');
-        name.textContent = pokemon.name;
-        name.textContent = capitalizeFirstLetter(name.textContent);
+        name.textContent = capitalizeFirstLetter(pokemon.name);
         
         const img = document.createElement('img');
         const pokemonId = pokemon.url.split('/').slice(-2, -1)[0];
         img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
         img.alt = pokemon.name;
 
+        const anchor = document.createElement('a');
+        anchor.href = `http://127.0.0.1:3000/pokemon?pokemon_name=${pokemon.name.toLowerCase()}&commit=Search`;
+        anchor.appendChild(card); 
+        anchor.style="text-decoration: none;";
+        const pokeballIcon = document.createElement('div');
+        pokeballIcon.classList.add('pokeball-icon');
+        card.appendChild(pokeballIcon);
         card.appendChild(name);
         card.appendChild(img);
-        resultsContainer.appendChild(card);
+        
+        anchor.appendChild(card);
+        resultsContainer.appendChild(anchor); 
     });
 }
+
 
 function handleSearch() {
     const query = searchInput.value;

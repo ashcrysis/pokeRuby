@@ -1,15 +1,36 @@
 body {
-    background-color: #222;
+    background-color: #e44444;
     color: #fff;
+
 }
 
 .search-container {
     margin-bottom: 20px;
-}
+    outline: none;
+    padding: 8px 20px;
+    color: #000;
+    font-size: 30px;
+    width: 100px;
+    height: auto;
 
+
+}
+.pokeball-icon {
+    position: absolute;
+    width: 20px;
+    height: 20px; 
+    background-image: url('/assets/Pokeball.png'); 
+    background-size: cover;
+    opacity: 1; 
+}
 .results-container {
     display: flex;
     flex-wrap: wrap;
+
+}
+.results-container :hover{
+    background-color: rgb(214, 64, 64);
+
 }
 
 .card {
@@ -21,8 +42,10 @@ body {
     text-align: center;
     background-color: #333; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
-}
+    color: white; 
 
+}
 .card img {
     max-width: 100px;
+
 }
