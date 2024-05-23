@@ -25,9 +25,10 @@ class PokemonController < ApplicationController
     else
       default_image_url = 'https://example.com/default_image.png'
       error_message = "Pokemon not found"
-      @pokemon_image = default_image_url
+      @pokemon_image_url = default_image_url
       @pokemon_name = error_message
-      return default_image_url, error_message
+      @pokemon_type = ""
+      @flavor_text = ""
     end
   end
 end
