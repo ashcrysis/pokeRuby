@@ -1,7 +1,10 @@
+
+function start_page(){
 const searchInput = document.getElementById('searchInput');
 const resultsContainer = document.getElementById('resultsContainer');
-
 let allPokemonData = []; 
+}
+window.addEventListener('load', start_page);
 
 async function fetchAllPokemon() {
     try {
@@ -65,5 +68,5 @@ function handleSearch() {
 
 searchInput.addEventListener('input', handleSearch);
 
-//receber os dados dos pokemons quando a pagina carregar
 window.addEventListener('load', fetchAllPokemon);
+
