@@ -6,7 +6,7 @@ class PokemonController < ApplicationController
     search_list = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=100000")
     search_list = JSON.parse(search_list.body) # storing pokemons in order to have the full list to be able to filter and show on the screen when the user is typing
 
-    if response.code == 200 # Check if the request was successful
+    if response.code == 200
       data = JSON.parse(response.body)
       sprite_url = data['sprites']['front_default']
       pokemon_name = data['name']

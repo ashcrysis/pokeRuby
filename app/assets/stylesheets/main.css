@@ -1,7 +1,9 @@
-body {
+#main_page_body {
     background-image: url('Frame\ 2.png'); 
     background-size: cover; 
     background-repeat: no-repeat; 
+    text-align:center;
+    color:black;
 }
 
 h1 {

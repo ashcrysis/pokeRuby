@@ -1,0 +1,28 @@
+body {
+    background-color: #222;
+    color: #fff;
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.results-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 200px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #333; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+}
+
+.card img {
+    max-width: 100px;
+}

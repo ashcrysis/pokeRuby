@@ -1,6 +1,6 @@
 <!-- app/views/pokemon/index.html.erb -->
-<link rel="stylesheet" href="style.css"> 
-<body style="text-align:center;}">
+<link rel="stylesheet" href="main.css"> 
+<body id="main_page_body">
 <%= form_tag pokemon_path, method: :get do %>
   <%= text_field_tag :pokemon_name, params[:pokemon_name], placeholder: "Enter Pokemon name", id: "pokemon_name_input"  , style:"margin-top:100px;margin-bottom:15px;"%>
   <%= submit_tag "Search" ,onClick: "clearInput()"%>
