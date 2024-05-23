@@ -1,4 +1,14 @@
-# README
+#README
 
-This is an study website that fetchs POKEAPI https://pokeapi.co/docs/v2 for pokemon info, whilst getting user input in order to search for pokemon id or pokemon name.
-I am using Ruby On Rails, so in order to test anything you need to have Ruby 3.1.4 installed, and run bundle install on the pokeRuby directory, after everything is installed, run rails s on the terminal (need to be in pokeRuby dir)
+Hey there! So, you stumbled upon this project. Cool, right? Here's a quick rundown so you know what's up without diving too deep:
+
+What's This All About?
+Well, it's a Pokédex. You know, like that thing Ash(Me) carries around in Pokémon. Except it's on the web. You can search for Pokémon and learn stuff about them.
+
+What You Need to Know
+Dependencies: There are some gems listed in the Gemfile. Just run bundle install to get everything set up.
+
+Getting Started: Once you've installed the dependencies, fire up the server with rails server (rails s, on the project dir) and go to http://localhost:3000 in your browser.
+
+Anything Else?
+Not really. If you have questions, ask Google first. If that fails, well, maybe try asking nicely in the Issues section on GitHub. No promises though.
