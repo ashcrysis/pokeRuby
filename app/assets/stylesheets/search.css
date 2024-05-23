@@ -15,22 +15,38 @@ body {
 
 
 }
+
+.results-container {
+    display: flex;
+    flex-wrap: wrap;
+    
+}
 .pokeball-icon {
     position: absolute;
     width: 20px;
     height: 20px; 
     background-image: url('/assets/Pokeball.png'); 
     background-size: cover;
+    opacity: 0.5; 
+    transition: transform 0.5s ease; 
+}
+
+.card:hover > .pokeball-icon {
+    animation: spin 1s infinite linear;
     opacity: 1; 
 }
-.results-container {
-    display: flex;
-    flex-wrap: wrap;
 
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
-.results-container :hover{
-    background-color: rgb(214, 64, 64);
 
+.results-container:hover {
+    background-color: rgb(214, 64, 64);
 }
 
 .card {
