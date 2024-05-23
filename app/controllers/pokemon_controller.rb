@@ -1,4 +1,4 @@
-class ArticlesController < ApplicationController
+class PokemonController < ApplicationController
   def index
     pokemon_name = params[:pokemon_name] || 'bulbasaur'
     response = HTTParty.get("https://pokeapi.co/api/v2/pokemon/#{pokemon_name.downcase}")
