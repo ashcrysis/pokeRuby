@@ -11,8 +11,13 @@ class PokemonController < ApplicationController
       sprite_url = data['sprites']['front_default']
       pokemon_name = data['name']
       type = response['types'][0]['type']['name']
-      species_call = HTTParty.get("https://pokeapi.co/api/v2/pokemon-species/#{pokemon_name.strip().split('-')[0]}")
-      species_data = JSON.parse(species_call.body)
+      if pokemon_name.include?('mega') || pokemon_name.include?('gmax')
+        species_call = HTTParty.get("https://pokeapi.co/api/v2/pokemon-species/#{pokemon_name.strip().split('-')[0]}")
+        species_data = JSON.parse(species_call.body)
+      else
+        species_call = HTTParty.get("https://pokeapi.co/api/v2/pokemon-species/#{pokemon_name}")
+        species_data = JSON.parse(species_call.body)
+      end
 
       english_description = species_data['flavor_text_entries'].find do |entry|
         entry['language']['name'] == 'en'
@@ -28,7 +33,11 @@ class PokemonController < ApplicationController
         type += ", " +response['types'][1]['type']['name']
       end
 
-      image = "https://img.pokemondb.net/artwork/#{pokemon_name.strip().split('-')[0]}.jpg"
+      if pokemon_name.include?('mega') || pokemon_name.include?('gmax')
+      image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/#{data['id']}.png"
+      else
+        image = "https://img.pokemondb.net/artwork/#{pokemon_name}.jpg"
+      end
       @pokemon_image_url = image
       @pokemon_name = pokemon_name
       @pokemon_type = type
