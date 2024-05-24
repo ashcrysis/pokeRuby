@@ -11,8 +11,8 @@ class PokemonController < ApplicationController
       sprite_url = data['sprites']['front_default']
       pokemon_name = data['name']
       type = response['types'][0]['type']['name']
-      description_call = HTTParty.get("https://pokeapi.co/api/v2/pokemon-species/#{data['id']}")
-      species_data = JSON.parse(description_call.body)
+      species_call = HTTParty.get("https://pokeapi.co/api/v2/pokemon-species/#{pokemon_name.strip().split('-')[0]}")
+      species_data = JSON.parse(species_call.body)
 
       english_description = species_data['flavor_text_entries'].find do |entry|
         entry['language']['name'] == 'en'
@@ -28,7 +28,7 @@ class PokemonController < ApplicationController
         type += ", " +response['types'][1]['type']['name']
       end
 
-      image = "https://img.pokemondb.net/artwork/#{pokemon_name}.jpg"
+      image = "https://img.pokemondb.net/artwork/#{pokemon_name.strip().split('-')[0]}.jpg"
       @pokemon_image_url = image
       @pokemon_name = pokemon_name
       @pokemon_type = type
