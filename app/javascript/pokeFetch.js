@@ -45,7 +45,7 @@ function displayResults(pokemonList) {
         img.alt = pokemon.name;
 
         const anchor = document.createElement('a');
-        anchor.href = `/pokemon?pokemon_name=${pokemon.name.toLowerCase()}&commit=Search`;
+        anchor.href = `/v1/pokemon?pokemon_name=${pokemon.name.toLowerCase()}&commit=Search`;
         anchor.appendChild(card); 
         anchor.style="text-decoration: none;";
         const pokeballIcon = document.createElement('div');
