@@ -32,16 +32,34 @@ class PokemonController < ApplicationController
       if response['types'].length > 1
         type += ", " +response['types'][1]['type']['name']
       end
+      moves = data['moves']
+      move_names = moves.map { |move| move['move']['name'] }
+      first_two_moves = move_names.sample(2).map(&:capitalize).join(", ")
 
       if pokemon_name.include?('-mega') || pokemon_name.include?('-gmax')
       image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/#{data['id']}.png"
       else
         image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/#{data['id']}.png"
       end
+
+      pokemon_height = data['height'].to_f * 10
+
+      pokemon_weight =  data['weight'].to_f / 10
+      base_stats = response['stats']
+      stats_hash = {}
+      base_stats.each do |stat|
+        stat_name = stat['stat']['name']
+        base_stat = stat['base_stat']
+        stats_hash[stat_name] = base_stat
+      end
+      @stats = stats_hash
+      @pokemon_height = "#{pokemon_height}"
+      @pokemon_weight = "#{pokemon_weight}"
       @pokemon_image_url = image
       @pokemon_name = pokemon_name
       @pokemon_type = type
       @flavor_text = description
+      @pokemon_moves = first_two_moves
     else
       default_image_url = 'https://example.com/default_image.png'
       error_message = "Pokemon not found"
@@ -49,6 +67,9 @@ class PokemonController < ApplicationController
       @pokemon_name = error_message
       @pokemon_type = ""
       @flavor_text = ""
+      @pokemon_height = ''
+      @pokemon_weight = ''
     end
   end
+
 end
