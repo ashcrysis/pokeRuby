@@ -25,28 +25,6 @@ h1 {
 #pokemon_type{
 margin-top:55px;
 }
-#pokemon_name_input::placeholder {
-    color: #ccc;
-    
-}
-
-#pokemon_name_input:focus {
-    outline: none;
-    border-color: #ffcc00;
-}
-
-input[type="submit"] {
-    padding: 8px 20px;
-    background-color: #ffcc00;
-    color: #000;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-input[type="submit"]:hover {
-    background-color: #ffdb4d;
-}
 
 #pokemon_image {
     width: 300px;

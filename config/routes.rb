@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   scope '/v1' do
     get "/pokemon", to: "pokemon#index"
     get "/search", to: "search#pokelist"
+    get "/", to: "search#pokelist"
   end
 end
