@@ -8,7 +8,6 @@ class PokemonController < ApplicationController
 
     if response.code == 200
       data = JSON.parse(response.body)
-      sprite_url = data['sprites']['front_default']
       pokemon_name = data['name']
       type = response['types'][0]['type']['name']
       if pokemon_name.include?('-mega') || pokemon_name.include?('-gmax')
@@ -42,7 +41,7 @@ class PokemonController < ApplicationController
         image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/#{data['id']}.png"
       end
 
-      pokemon_height = data['height'].to_f * 10
+      pokemon_height = data['height'].to_f  * 10
 
       pokemon_weight =  data['weight'].to_f / 10
       base_stats = response['stats']
@@ -60,6 +59,7 @@ class PokemonController < ApplicationController
       @pokemon_type = type
       @flavor_text = description
       @pokemon_moves = first_two_moves
+      @pokemon_id = data['id']
     else
       default_image_url = 'https://example.com/default_image.png'
       error_message = "Pokemon not found"
@@ -69,6 +69,8 @@ class PokemonController < ApplicationController
       @flavor_text = ""
       @pokemon_height = ''
       @pokemon_weight = ''
+      @pokemon_moves = ''
+      @pokemon_id = ''
     end
   end
 
