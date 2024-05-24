@@ -34,6 +34,8 @@ body {
 .card:hover > .pokeball-icon {
     animation: spin 1s infinite linear;
     opacity: 1; 
+    width: 25px;
+    height: 25px; 
 }
 
 @keyframes spin {
