@@ -1,10 +1,7 @@
 <!-- app/views/pokemon/index.html.erb -->
 <link rel="stylesheet" href="/assets/main.css"> 
 <body id="main_page_body">
-<%= form_tag pokemon_path, method: :get do %>
-  <%= text_field_tag :pokemon_name, params[:pokemon_name], placeholder: "Enter Pokemon name", id: "pokemon_name_input"  , style:"margin-top:100px;margin-bottom:15px;"%>
-  <%= submit_tag "Search" ,onClick: "clearInput()"%>
-<% end %>
+
 <script>
     function clearInput() {
         setTimeout(function() {
@@ -13,7 +10,7 @@
   }
 </script>
 <div>
-<h1 id="pokemon_name"><%= @pokemon_name.capitalize + " | #{@pokemon_id}"%></h1>
+<h1 style="margin-top:220px;",id="pokemon_name"><%= @pokemon_name.capitalize + " | #{@pokemon_id}"%></h1>
 <%= image_tag @pokemon_image_url, alt: @pokemon_name, id: "pokemon_image",style:"margin-bottom:-90px;" %>
 <p id="pokemon_type">Type/s: <%= @pokemon_type.capitalize%></p>
 

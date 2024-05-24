@@ -4,7 +4,6 @@ const searchInput = document.getElementById('searchInput');
 const resultsContainer = document.getElementById('resultsContainer');
 let allPokemonData = []; 
 }
-window.addEventListener('load', start_page);
 
 async function fetchAllPokemon() {
     try {
@@ -35,7 +34,7 @@ function displayResults(pokemonList) {
     pokemonList.forEach(pokemon => {
         const card = document.createElement('div');
         card.classList.add('card');
-
+        
         const name = document.createElement('h2');
         name.textContent = capitalizeFirstLetter(pokemon.name);
         
@@ -43,7 +42,7 @@ function displayResults(pokemonList) {
         const pokemonId = pokemon.url.split('/').slice(-2, -1)[0];
         img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
         img.alt = pokemon.name;
-
+        
         const anchor = document.createElement('a');
         anchor.href = `/v1/pokemon?pokemon_name=${pokemon.name.toLowerCase()}&commit=Search`;
         anchor.appendChild(card); 
@@ -66,7 +65,8 @@ function handleSearch() {
     displayResults(filteredPokemon);
 }
 
-searchInput.addEventListener('input', handleSearch);
 
+searchInput.addEventListener('input', handleSearch);
 window.addEventListener('load', fetchAllPokemon);
+window.addEventListener('load', start_page);
 
