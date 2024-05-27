@@ -44,7 +44,7 @@ function displayResults(pokemonList) {
         img.alt = pokemon.name;
         
         const anchor = document.createElement('a');
-        anchor.href = `/v1/pokemon?pokemon_name=${pokemon.name.toLowerCase()}&commit=Search`;
+        anchor.href = `/v1/pokemon?pokemon_name=${pokemon.name.toLowerCase()}`;
         anchor.appendChild(card); 
         anchor.style="text-decoration: none;";
         const pokeballIcon = document.createElement('div');
@@ -61,12 +61,22 @@ function displayResults(pokemonList) {
 
 function handleSearch() {
     const query = searchInput.value;
+    console.log(searchInput);
     const filteredPokemon = filterPokemon(query);
     displayResults(filteredPokemon);
 }
 
-
 searchInput.addEventListener('input', handleSearch);
-window.addEventListener('load', fetchAllPokemon);
+fetchAllPokemon();
 window.addEventListener('load', start_page);
 
+const pokeballIcon = document.createElement('div');
+pokeballIcon.classList.add('pokeball-icon');
+
+document.addEventListener("DOMContentLoaded", function() {
+  const favoriteCards = document.querySelectorAll('.card');
+  favoriteCards.forEach(function(card) {
+    const clonedPokeballIcon = pokeballIcon.cloneNode(true);
+    card.insertBefore(clonedPokeballIcon, card.firstChild);
+  });
+});

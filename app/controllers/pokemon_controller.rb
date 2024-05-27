@@ -12,7 +12,7 @@ class PokemonController < ApplicationController
 
   def fetch_pokemon_data(pokemon_name)
     response = HTTParty.get("#{POKEMON_API}/#{pokemon_name.downcase}")
-
+    @favorites = Favorite.list
     if response.code == 200
       data = JSON.parse(response.body)
       pokemon_name = data['name']

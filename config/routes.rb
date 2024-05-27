@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'favorites/create'
+  get 'favorites/index'
   root "search#pokelist"
 
   scope '/v1' do
@@ -6,4 +8,7 @@ Rails.application.routes.draw do
     get "/search", to: "search#pokelist"
     get "/", to: "search#pokelist"
   end
+  resources :pokemon, only: [:index, :show]
+  resources :favorites, only: [:create, :index]
+  delete 'favorites/clear', to: 'favorites#clear', as: 'clear_favorites'
 end

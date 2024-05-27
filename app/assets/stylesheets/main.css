@@ -38,3 +38,40 @@ margin-top:55px;
     font-size: 18px;
     margin-bottom: 20px;
 }
+
+  .favorite-button, .unfavorite-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .unfavorite-button {
+    background-color: #f44336; /* Red */
+  }
+  .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    width: 150px;
+  }
+  
+  .card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .card h2 {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }

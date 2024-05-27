@@ -15,7 +15,15 @@ body {
 
 
 }
-
+.favorite-link {
+    text-decoration: none;
+  }
+.favorites-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    text-decoration: none;
+  }
 .results-container {
     display: flex;
     flex-wrap: wrap;
@@ -30,7 +38,6 @@ body {
     opacity: 0.5; 
     transition: transform 0.5s ease; 
 }
-
 .card:hover > .pokeball-icon {
     animation: spin 1s infinite linear;
     opacity: 1; 
