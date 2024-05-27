@@ -22,6 +22,9 @@ class FavoritesController < ApplicationController
 
     redirect_back(fallback_location: root_path)
   end
+  def all
+    render json: Favorite.all
+  end
   def clear
     Favorite.delete_all
     flash[:notice] = 'all favorites have been cleared.'
