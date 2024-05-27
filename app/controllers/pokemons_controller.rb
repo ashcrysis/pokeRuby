@@ -2,13 +2,6 @@ class PokemonsController < ApplicationController
   POKEMON_API = "https://pokeapi.co/api/v2/pokemon"
   before_action :set_pokemon, only: [:update, :destroy]
 
-  def search
-    name = params[:name]
-    render json: fetch_pokemon_data(name)
-  end
-  def list
-    render json: Pokemon.all
-  end
   def create
    @pokemon = Pokemon.new(pokemon_params)
    if @pokemon.save
@@ -17,6 +10,13 @@ class PokemonsController < ApplicationController
      render json: @pokemon.errors, status: :unprocessable_entity
    end
  end
+  def search
+    name = params[:name]
+    render json: fetch_pokemon_data(name)
+  end
+  def list
+    render json: Pokemon.all
+  end
 
  def update
    if @pokemon.update(pokemon_params)
