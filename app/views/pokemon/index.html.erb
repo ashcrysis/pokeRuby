@@ -1,10 +1,6 @@
 <!-- app/views/pokemon/index.html.erb -->
-<link rel="stylesheet" href="style.css"> 
-<body style="text-align:center;}">
-<%= form_tag pokemon_path, method: :get do %>
-  <%= text_field_tag :pokemon_name, params[:pokemon_name], placeholder: "Enter Pokemon name", id: "pokemon_name_input"  , style:"margin-top:100px;margin-bottom:15px;"%>
-  <%= submit_tag "Search" ,onClick: "clearInput()"%>
-<% end %>
+<link rel="stylesheet" href="/assets/main.css"> 
+<body id="main_page_body">
 <script>
     function clearInput() {
         setTimeout(function() {
@@ -13,10 +9,21 @@
   }
 </script>
 <div>
-<h1 id="pokemon_name"><%= @pokemon_name.capitalize  %></h1>
-<h1 id="pokemon_type">Type/s: <%= @pokemon_type.capitalize%></h1>
-<%= image_tag @pokemon_image_url, alt: @pokemon_name, id: "pokemon_image" , style: "width: 400px; height: auto; image-rendering: pixelated;" %>
+<h1 style="margin-top:220px;",id="pokemon_name"><%= @pokemon_name.capitalize + " | #{@pokemon_id}"%></h1>
+<%= image_tag @pokemon_image_url, alt: @pokemon_name, id: "pokemon_image",style:"margin-bottom:-60px;" %>
+<p id="pokemon_type">Type/s: <%= @pokemon_type.capitalize%></p>
 
-<h1 style="font-size:large;"><%= @flavor_text%> </h1>
-<div>
-<body>
+<p>Heigth : <%= @pokemon_height %> cm | Weight : <%= @pokemon_weight %> kg | Moves : <%= @pokemon_moves %></p>
+<p style="font-size:large;"><%= @flavor_text %> </p>
+<h2 style="margin-top:10px;">Base stats</h2>
+<% @stats.each do |stat_name, base_stat| %>
+  <div>
+    <%= stat_name.capitalize %>: <%= base_stat %>
+  </div>
+<% end %>
+<% if @favorites.present? && @favorites.map(&:name).include?(@pokemon_name) %>
+  <%= button_to 'Unfavorite', favorites_path(pokemon_id: @pokemon_id, name: @pokemon_name), method: :destroy, class: 'unfavorite-button', id: 'favorite-button' %>
+<% else %>
+  <%= button_to 'Favorite', favorites_path(pokemon_id: @pokemon_id, name: @pokemon_name), method: :post, class: 'favorite-button', id: 'favorite-button' %>
+<% end %>
+</body>

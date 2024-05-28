@@ -1,0 +1,23 @@
+<!-- app/views/search/index.html.erb -->
+<link rel="stylesheet" href="/assets/search.css">
+<body>
+  <h2>Favorites List</h2>
+<div class="favorites-container">
+  <% @favorites.each do |favorite| %>
+    <%= link_to "/v1/pokemon?pokemon_name=#{favorite[:name]}&commit=Search", class: "favorite-link" do %>
+      <div class="card">
+        <h2><%= favorite[:name].capitalize %></h2>
+        <img src="<%= favorite[:image_url] %>" alt="<%= favorite[:name] %>">
+      </div>
+    <% end %>
+  <% end %>
+</div>
+  <%= button_to 'Clear All Favorites', clear_favorites_path, method: :delete, data: { confirm: 'Are you sure you want to clear all favorites?' }, class: 'clear-favorites-button' %>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search Pokemon...">
+  </div>
+
+  <div id="resultsContainer" class="results-container"></div>
+
+  <%= javascript_include_tag("pokeFetch.js") %>
+</body>
