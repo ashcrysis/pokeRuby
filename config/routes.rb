@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root "pokemons#list"
+  #devise_for :users, controllers: {
+  #  sessions: 'users/sessions'
+  #}
   scope '/v2' do
     scope '/users' do
       post "/create", to: "users#create"
