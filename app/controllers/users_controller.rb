@@ -10,7 +10,10 @@ class UsersController < ApplicationController
       render json: @user.errors, status: :unprocessable_entity
     end
   end
-
+  def current
+    @current_user = current_user
+    render json: @current_user
+  end
   def update
     if @user.update(user_params)
       render json: @user
