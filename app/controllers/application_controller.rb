@@ -6,4 +6,5 @@ class ApplicationController < ActionController::Base
   def api_request?
     request.path.start_with?('/v2')
   end
+
 end
