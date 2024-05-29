@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     scope '/v2/users' do
       post "/sign_in", to: "users/sessions#create"
-      get "/current", to: "user/sessions#fetch_current_user"
+      get "/current", to: "users/sessions#fetch_current_user"
     end
   end
 

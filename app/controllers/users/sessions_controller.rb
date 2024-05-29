@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
     @user = User.find_by(email: params[:email])
     if @user && @user.valid_password?(params[:password])
       sign_in(@user)
-      session[:user_id] = @user.id
+      session[:email] = params[:email]
       render json: { user: @user }, status: :ok
     else
       render json: { error: 'Invalid email or password' }, status: :unauthorized
@@ -13,7 +13,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def fetch_current_user
-    @user = User.find_by(id: session[:user_id])
+    @user = User.find_by(email: session[:email])
     if @user
       render json: { user: @user }, status: :ok
     else
