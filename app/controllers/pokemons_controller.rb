@@ -31,13 +31,13 @@ class PokemonsController < ApplicationController
    render json: { message: 'Pokemon was successfully destroyed.' }
  end
 
+ def fetch_all_pokemon_data
+   response = HTTParty.get("#{POKEMON_API}?limit=10000")
+   if response.code == 200
+     render json: JSON.parse(response.body)
+   end
+ end
   private
-  def fetch_all_pokemon_data
-    response = HTTParty.get("#{POKEMON_API}?limit=10000")
-    if response.code == 200
-      data = JSON.parse(response.body)
-    end
-  end
   def fetch_pokemon_data(pokemon_name)
     response = HTTParty.get("#{POKEMON_API}/#{pokemon_name}")
     if response.code == 200
