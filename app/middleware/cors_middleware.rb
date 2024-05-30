@@ -18,9 +18,10 @@ class CorsMiddleware
 
   def cors_headers
     {
-      "Access-Control-Allow-Origin" => "http://localhost:3000", # Update with your frontend origin
+      "Access-Control-Allow-Origin" => "http://localhost:3000",
       "Access-Control-Allow-Methods" => "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers" => "Content-Type",
+      "Access-Control-Allow-Headers" => "Content-Type, Authorization",
+      "Access-Control-Expose-Headers" => "Authorization",
       "Access-Control-Max-Age" => "1728000",
       "Access-Control-Allow-Credentials" => "true"
     }

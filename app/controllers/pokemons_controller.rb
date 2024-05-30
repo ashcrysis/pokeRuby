@@ -1,6 +1,7 @@
 class PokemonsController < ApplicationController
   POKEMON_API = "https://pokeapi.co/api/v2/pokemon"
   before_action :set_pokemon, only: [:update, :destroy]
+  before_action :authenticate_user!
 
   def create
    @pokemon = Pokemon.new(pokemon_params)
@@ -9,11 +10,13 @@ class PokemonsController < ApplicationController
    else
      render json: @pokemon.errors, status: :unprocessable_entity
    end
- end
+  end
+
   def search
     name = params[:name]
     render json: fetch_pokemon_data(name)
   end
+
   def list
     render json: Pokemon.all
   end
@@ -37,6 +40,7 @@ class PokemonsController < ApplicationController
      render json: JSON.parse(response.body)
    end
  end
+
   private
   def fetch_pokemon_data(pokemon_name)
     response = HTTParty.get("#{POKEMON_API}/#{pokemon_name}")
