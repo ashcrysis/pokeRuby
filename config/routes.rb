@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   root "pokemons#list"
-  devise_for :users, controllers: {
-    sessions: 'users/sessions'
+  devise_for :users, path: '', path_names: {
+    sign_in: 'login',
+    sign_out: 'logout',
+    registration: 'signup'
+  },
+  controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
-  devise_scope :user do
-    scope '/v2/users' do
-      post "/sign_in", to: "users/sessions#create"
-      get "/current", to: "users/sessions#fetch_current_user"
-    end
-  end
 
   scope '/v2' do
     scope '/users' do
