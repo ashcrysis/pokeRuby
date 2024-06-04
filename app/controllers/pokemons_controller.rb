@@ -41,6 +41,16 @@ class PokemonsController < ApplicationController
    end
  end
 
+ def species
+   name = params[:name]
+   data = fetch_pokemon_species_data(name)
+   if data[:error]
+     render json: { error: data[:error] }, status: :not_found
+   else
+     description = find_english_description(data)
+     render json: { description: description }
+   end
+ end
   private
   def fetch_pokemon_data(pokemon_name)
     response = HTTParty.get("#{POKEMON_API}/#{pokemon_name}")
@@ -48,6 +58,25 @@ class PokemonsController < ApplicationController
       JSON.parse(response.body)
     else
       { error: "Pokémon not found" }
+    end
+  end
+
+  def fetch_pokemon_species_data(pokemon_name)
+    response = HTTParty.get("#{POKEMON_API}-species/#{pokemon_name}")
+    if response.code == 200
+      JSON.parse(response.body)
+    else
+      { error: "Pokémon not found" }
+    end
+  end
+
+
+  def find_english_description(data)
+    entry = data['flavor_text_entries'].find { |entry| entry['language']['name'] == 'en' }
+    if entry
+      entry['flavor_text'].gsub("\f", " ")
+    else
+      "Description not found"
     end
   end
 
