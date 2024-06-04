@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       put "/update/:id", to: "users#update"
       delete "/destroy/:id", to: "users#destroy"
       get "/list", to: "users#list"
+      get "/current", to: "users#current"
     end
 
     scope '/pokemons' do

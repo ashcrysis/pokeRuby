@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:update, :destroy]
   #before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:create, :list] #pode quebrar
   def create
     @user = User.new(user_params)
 
@@ -10,10 +11,11 @@ class UsersController < ApplicationController
       render json: @user.errors, status: :unprocessable_entity
     end
   end
+
   def current
-    @current_user = current_user
-    render json: @current_user
+    render json: { email: current_user.email }
   end
+
   def update
     if @user.update(user_params)
       render json: @user
