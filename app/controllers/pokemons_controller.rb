@@ -51,6 +51,7 @@ class PokemonsController < ApplicationController
      render json: { description: description }
    end
  end
+
   private
   def fetch_pokemon_data(pokemon_name)
     response = HTTParty.get("#{POKEMON_API}/#{pokemon_name}")
@@ -69,7 +70,6 @@ class PokemonsController < ApplicationController
       { error: "Pokémon not found" }
     end
   end
-
 
   def find_english_description(data)
     entry = data['flavor_text_entries'].find { |entry| entry['language']['name'] == 'en' }
