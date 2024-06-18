@@ -85,6 +85,6 @@ class PokemonsController < ApplicationController
   end
 
   def pokemon_params
-    params.require(:pokemon).permit(:nome, :moves, :tipo, :imagem)
+    params.require(:pokemon).permit(:nome, :tipo, :imagem, moves: [])
   end
 end
