@@ -29,7 +29,7 @@ We can generate a secret by typing the following in the terminal:
 ```bundle exec rails secret``` 
 We will then add it to the encrypted credentials file so it won’t be exposed:
 
-#VSCode
+## VSCode Terminal:
 ```
 EDITOR='code --wait' rails credentials:edit
 ```
