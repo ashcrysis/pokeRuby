@@ -14,8 +14,21 @@ class PokemonsController < ApplicationController
 
   def search
     name = params[:name]
-    render json: fetch_pokemon_data(name)
+
+    if name.blank? || name.is_a?(Integer) || name.match(/\d/)
+      render json: { error: "Invalid Pokémon name" }, status: :bad_request
+      return
+    end
+
+    result = fetch_pokemon_species_data(name)
+
+    if result.key?("error")
+      render json: result, status: :bad_request
+    else
+      render json: result
+    end
   end
+
 
   def list
     render json: Pokemon.all
