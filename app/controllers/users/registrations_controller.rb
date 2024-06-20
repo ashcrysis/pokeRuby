@@ -39,4 +39,13 @@ before_action :configure_sign_up_params, only: [:create]
       }, status: :unauthorized
     end
   end
+  private
+
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:nome, :telefone, :cep, :rua, :numero, :complemento])
+  end
+
+  def sign_up_params
+    params.require(:user).permit(:email, :password, :nome, :telefone, :cep, :rua, :numero, :complemento)
+  end
 end
