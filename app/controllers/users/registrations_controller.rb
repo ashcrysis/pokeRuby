@@ -16,7 +16,7 @@ before_action :configure_sign_up_params, only: [:create]
       }
     else
       render json: {
-        status: { message: "User couldn't be created successfully. " + @user.errors.full_messages.to_sentence }
+        status: { message: @user.errors.full_messages.to_sentence }
       }, status: :unprocessable_entity
     end
   end
