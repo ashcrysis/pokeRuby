@@ -28,7 +28,7 @@
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
-
+/config/credentials.yml.enc
 /public/assets
 
 # Ignore master key for decrypting credentials and more.
