@@ -13,7 +13,8 @@ class UsersController < ApplicationController
   end
 
   def current
-    render json: { email: current_user.email }
+    user = User.find_by(email: current_user.email)
+    render json: { email: user.email, nome: user.nome }
   end
 
   def update
