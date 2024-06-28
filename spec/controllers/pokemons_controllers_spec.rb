@@ -10,7 +10,7 @@ RSpec.describe PokemonsController, type: :controller do
   end
 
   describe 'GET #search', :vcr do
-    it 'returns a Pokémon when a valid name is provided' do
+    it 'returns a Pokemon when a valid name is provided' do
       get :search, params: { name: 'pikachu' }
       expect(response).to have_http_status(:success)
       json_response = JSON.parse(response.body)
