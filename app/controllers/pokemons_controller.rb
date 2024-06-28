@@ -14,8 +14,10 @@ class PokemonsController < ApplicationController
 
   def search
     name = params[:name]
+   
+    name = name.to_s
 
-    if name.blank? || name.is_a?(Integer) || name.match(/\d/)
+    if name.blank? || name.match(/\d/)
       render json: { error: "Invalid Pokémon name" }, status: :bad_request
       return
     end
