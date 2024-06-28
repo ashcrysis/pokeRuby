@@ -19,7 +19,7 @@ RSpec.describe PokemonsController, type: :controller do
   end
 
   describe 'GET #fetch_all_pokemon_data', :vcr do
-    it 'returns a list of all Pokémon' do
+    it 'returns a list of all Pokemon' do
       get :fetch_all_pokemon_data
       expect(response).to have_http_status(:success)
       json_response = JSON.parse(response.body)
