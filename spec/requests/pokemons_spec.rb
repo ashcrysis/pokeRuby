@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'vcr'
 
 RSpec.describe PokemonsController, type: :request do
   before do
@@ -39,7 +40,7 @@ RSpec.describe PokemonsController, type: :request do
     end
   end
 
-  describe "GET /v2/pokemons/list" do
+  describe "GET /v2/pokemons/list", :vcr do
     it 'returns a list of all pokemons' do
       get "/v2/pokemons/list"
 
@@ -47,8 +48,26 @@ RSpec.describe PokemonsController, type: :request do
 
       parsed_response = JSON.parse(response.body)
       expect(parsed_response.size).to eq(Pokemon.count)
-
     end
   end
 
+  describe "GET /v2/pokemons/search", :vcr do
+    it 'returns a pokemon based on param' do
+      pokemon = { name: "pikachu" }
+      get "/v2/pokemons/search", params: pokemon
+      expect(response).to have_http_status(:ok)
+
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['name']).to eq(pokemon[:name])
+    end
+
+    it 'returns bad request for a number instead of a name' do
+      invalid_pokemon = { name: 4 }
+      get "/v2/pokemons/search", params: invalid_pokemon
+      expect(response).to have_http_status(:bad_request)
+
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['error']).to eq("Invalid Pokémon name")
+    end
+  end
 end
