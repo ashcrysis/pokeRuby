@@ -50,7 +50,7 @@ class PokemonsController < ApplicationController
   end
 
   def fetch_all_pokemon_data
-    response = pokemons_service.fetch_pokemon
+    response = pokemons_service.all_pokemons
     render json: response
   end
 
@@ -103,6 +103,6 @@ class PokemonsController < ApplicationController
   end
 
   def pokemons_service
-    PokemonsService
+    PokemonsService.new(PokemonsApiRepository.new)
   end
 end
