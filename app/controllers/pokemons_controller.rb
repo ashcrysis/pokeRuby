@@ -4,12 +4,12 @@ class PokemonsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-   @pokemon = Pokemon.new(pokemon_params)
-   if @pokemon.save
-     render json: @pokemon, status: :created
-   else
-     render json: @pokemon.errors, status: :unprocessable_entity
-   end
+    @pokemon = Pokemon.new(pokemon_params)
+    if @pokemon.save
+      render json: @pokemon, status: :created
+    else
+      render json: @pokemon.errors, status: :unprocessable_entity
+    end
   end
 
   def search
@@ -36,38 +36,37 @@ class PokemonsController < ApplicationController
     render json: Pokemon.all
   end
 
- def update
-   if @pokemon.update(pokemon_params)
-     render json: @pokemon
-   else
-     render json: @pokemon.errors, status: :unprocessable_entity
-   end
- end
+  def update
+    if @pokemon.update(pokemon_params)
+      render json: @pokemon
+    else
+      render json: @pokemon.errors, status: :unprocessable_entity
+    end
+  end
 
- def destroy
-   @pokemon.destroy
-   render json: { message: 'Pokemon was successfully destroyed.' }
- end
+  def destroy
+    @pokemon.destroy
+    render json: { message: 'Pokemon was successfully destroyed.' }
+  end
 
- def fetch_all_pokemon_data
-   response = HTTParty.get("#{POKEMON_API}?limit=10000")
-   if response.code == 200
-     render json: JSON.parse(response.body)
-   end
- end
+  def fetch_all_pokemon_data
+    response = pokemons_service.fetch_pokemon
+    render json: response
+  end
 
- def species
-   name = params[:name]
-   data = fetch_pokemon_species_data(name)
-   if data[:error]
-     render json: { error: data[:error] }, status: :not_found
-   else
-     description = find_english_description(data)
-     render json: { description: description }
-   end
- end
+  def species
+    name = params[:name]
+    data = fetch_pokemon_species_data(name)
+    if data[:error]
+      render json: { error: data[:error] }, status: :not_found
+    else
+      description = find_english_description(data)
+      render json: { description: description }
+    end
+  end
 
   private
+
   def fetch_pokemon_data(pokemon_name)
     response = HTTParty.get("#{POKEMON_API}/#{pokemon_name}")
     if response.code == 200
@@ -101,5 +100,9 @@ class PokemonsController < ApplicationController
 
   def pokemon_params
     params.require(:pokemon).permit(:nome, :tipo, :imagem, moves: [])
+  end
+
+  def pokemons_service
+    PokemonsService
   end
 end
