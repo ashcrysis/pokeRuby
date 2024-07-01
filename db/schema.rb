@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_140240) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_01_112253) do
   create_table "favorites", force: :cascade do |t|
     t.string "name"
     t.string "image_url"
@@ -31,12 +31,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_140240) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
-    t.string "nome"
-    t.string "telefone"
-    t.string "cep"
-    t.string "rua"
-    t.string "numero"
-    t.string "complemento"
+    t.string "name"
+    t.string "phone"
+    t.string "postal_code"
+    t.string "street"
+    t.string "number"
+    t.string "complement"
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
