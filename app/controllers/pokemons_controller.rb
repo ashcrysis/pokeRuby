@@ -2,6 +2,8 @@ class PokemonsController < ApplicationController
   POKEMON_API = "https://pokeapi.co/api/v2/pokemon"
   before_action :set_pokemon, only: [:update, :destroy]
   before_action :authenticate_user!
+  cattr_accessor :use_second_api
+  self.use_second_api = true
 
   def create
     @pokemon = Pokemon.new(pokemon_params)
@@ -14,7 +16,7 @@ class PokemonsController < ApplicationController
 
   def search
     name = params[:name]
-   
+
     name = name.to_s
 
     if name.blank? || name.match(/\d/)
@@ -30,7 +32,6 @@ class PokemonsController < ApplicationController
       render json: result
     end
   end
-
 
   def list
     render json: Pokemon.all
@@ -63,6 +64,11 @@ class PokemonsController < ApplicationController
       description = find_english_description(data)
       render json: { description: description }
     end
+  end
+
+  def toggle_api
+    self.class.use_second_api = !self.class.use_second_api
+    render json: { message: "API toggled to #{self.class.use_second_api}" }
   end
 
   private
@@ -103,6 +109,10 @@ class PokemonsController < ApplicationController
   end
 
   def pokemons_service
-    PokemonsService.new(PokemonsApiRepository.new)
+    if self.class.use_second_api
+      PokemonsService.new(PokemonsApiRepository.new)
+    else
+      PokemonsService.new(PokemonsRepository.new)
+    end
   end
 end

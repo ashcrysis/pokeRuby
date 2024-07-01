@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       get "/search", to: "pokemons#search"
       get "/fetch_all", to: "pokemons#fetch_all_pokemon_data"
       get "/species", to: "pokemons#species"
+
+      get "/toggle_api", to: "pokemons#toggle_api"
     end
 
     scope '/favorites' do
