@@ -5,7 +5,7 @@ class User < ApplicationRecord
    self.skip_session_storage = [:http_auth, :params_auth]
 
    has_many :favorites
-   validates :nome, presence: true
+   validates :name, presence: true
    validates :password, presence: true
    validates :email, presence: true, uniqueness: true
 

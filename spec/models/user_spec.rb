@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
     it 'returns user name' do
-      user = create(:user, nome: "Asher")
-      expect(user.nome).to eq "Asher"
+      user = create(:user, name: "Asher")
+      expect(user.name).to eq "Asher"
     end
 
     it 'validates user name not nil' do
-      user = build(:user, nome: nil)
+      user = build(:user, name: nil)
       expect(user.valid?).to be false
-      expect(user.errors[:nome]).to include("can't be blank")
+      expect(user.errors[:name]).to include("can't be blank")
     end
 
     it 'validates user password not nil' do

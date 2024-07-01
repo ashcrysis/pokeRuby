@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def current
     user = User.find_by(email: current_user.email)
-    render json: { email: user.email, nome: user.nome }
+    render json: { email: user.email, name: user.name }
   end
 
   def update
@@ -42,6 +42,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :nome, :telefone, :cep, :rua, :numero, :complemento, :password)
+    params.require(:user).permit(:email, :name, :phone, :postal_code, :street, :number, :complement, :password)
   end
 end
