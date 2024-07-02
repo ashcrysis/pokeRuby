@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:update, :destroy]
-  #before_action :authenticate_user!
-  before_action :authenticate_user!, except: [:create, :list] #pode quebrar
+  before_action :authenticate_user!, except: [:create, :list]
+
   def create
     @user = User.new(user_params)
 
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def current
     user = User.find_by(email: current_user.email)
-    render json: { user: user}
+    render json: { user: user }
   end
 
   def update
@@ -42,6 +42,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :name, :phone, :postal_code, :street, :number, :complement, :password)
+    params.require(:user).permit(:email, :name, :phone, :postal_code, :street, :number, :complement).tap do |user_params|
+      user_params[:password] = params[:user][:password] if params[:user][:password].present?
+    end
   end
 end
