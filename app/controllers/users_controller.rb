@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    Rails.logger.info "Received update request with params: #{params.inspect}"
     if @user.update(user_params)
       render json: @user
     else
@@ -42,8 +43,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :name, :phone, :postal_code, :street, :number, :complement).tap do |user_params|
-      user_params[:password] = params[:user][:password] if params[:user][:password].present?
-    end
+    params.require(:user).permit(:email, :name,:password, :phone, :postal_code, :street, :number, :complement)
   end
 end
