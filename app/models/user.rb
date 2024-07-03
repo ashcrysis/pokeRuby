@@ -9,4 +9,5 @@ class User < ApplicationRecord
    validates :password, presence: true, on: :create
    validates :email, presence: true, uniqueness: true
 
+   has_one_attached :image
 end

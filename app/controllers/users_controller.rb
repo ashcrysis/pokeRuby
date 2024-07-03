@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def current
     user = User.find_by(email: current_user.email)
-    render json: { user: user }
+    render json: UserSerializer.new(user).serializable_hash
   end
 
   def update
@@ -43,6 +43,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :name,:password, :phone, :postal_code, :street, :number, :complement)
+    params.require(:user).permit(:email, :name,:password, :phone, :postal_code, :street, :number, :complement, :image)
   end
 end
