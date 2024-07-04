@@ -24,20 +24,23 @@ class UsersController < ApplicationController
     end
   end
 
-def update
-  Rails.logger.info "Received update request with params: #{params.inspect}"
+  def update
+    Rails.logger.info "Received update request with params: #{params.inspect}"
 
-  if user_params[:image].present?
-    Rails.logger.info "Received image file: #{uploaded_image.original_filename}"
-    @user.image.attach(user_params[:image])
-  end
+    if user_params[:image].present?
+      Rails.logger.info "Received image file: #{user_params[:image].original_filename}"
 
-  if @user.update(user_params.except(:image))
-    render json: @user
-  else
-    render json: @user.errors, status: :unprocessable_entity
+      @user.image.purge if @user.image.attached?
+
+      @user.image.attach(user_params[:image])
+    end
+
+    if @user.update(user_params.except(:image))
+      render json: @user
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
   end
-end
 
   def destroy
     @user.destroy
