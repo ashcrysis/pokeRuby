@@ -14,17 +14,30 @@ class UsersController < ApplicationController
 
   def current
     user = User.find_by(email: current_user.email)
-    render json: UserSerializer.new(user).serializable_hash
-  end
 
-  def update
-    Rails.logger.info "Received update request with params: #{params.inspect}"
-    if @user.update(user_params)
-      render json: @user
+    if user
+      user_json = UserSerializer.new(user).serializable_hash.as_json
+      image_url = user.image.attached? ? url_for(user.image) : nil
+      render json: user_json.merge({ image: image_url })
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { error: 'User not found' }, status: :not_found
     end
   end
+
+def update
+  Rails.logger.info "Received update request with params: #{params.inspect}"
+
+  if user_params[:image].present?
+    Rails.logger.info "Received image file: #{uploaded_image.original_filename}"
+    @user.image.attach(user_params[:image])
+  end
+
+  if @user.update(user_params.except(:image))
+    render json: @user
+  else
+    render json: @user.errors, status: :unprocessable_entity
+  end
+end
 
   def destroy
     @user.destroy
