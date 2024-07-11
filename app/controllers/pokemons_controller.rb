@@ -5,15 +5,6 @@ class PokemonsController < ApplicationController
   cattr_accessor :use_second_api
   self.use_second_api = true
 
-  def create
-    @pokemon = Pokemon.new(pokemon_params)
-    if @pokemon.save
-      render json: @pokemon, status: :created
-    else
-      render json: @pokemon.errors, status: :unprocessable_entity
-    end
-  end
-
   def search
     name = params[:name]
 
@@ -31,23 +22,6 @@ class PokemonsController < ApplicationController
     else
       render json: result
     end
-  end
-
-  def list
-    render json: Pokemon.all
-  end
-
-  def update
-    if @pokemon.update(pokemon_params)
-      render json: @pokemon
-    else
-      render json: @pokemon.errors, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @pokemon.destroy
-    render json: { message: 'Pokemon was successfully destroyed.' }
   end
 
   def fetch_all_pokemon_data

@@ -20,10 +20,6 @@ Rails.application.routes.draw do
     end
 
     scope '/pokemons' do
-      post "/create", to: "pokemons#create"
-      put "/update/:id", to: "pokemons#update"
-      delete "/destroy/:id", to: "pokemons#destroy"
-      get "/list", to: "pokemons#list"
       get "/search", to: "pokemons#search"
       get "/fetch_all", to: "pokemons#fetch_all_pokemon_data"
       get "/species", to: "pokemons#species"
