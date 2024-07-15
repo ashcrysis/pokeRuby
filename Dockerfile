@@ -10,23 +10,21 @@ WORKDIR /rails
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development test"
 
-# Install packages needed to build gems
+# Install build dependencies
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential git libsqlite3-dev libvips pkg-config
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
-RUN bundle install --jobs=$(nproc) --retry=3 && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
+RUN bundle install --jobs=$(nproc) --retry=3
 
 # Copy application code
 COPY . .
 
-# Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile app/ lib/
+# Precompile assets
+RUN bundle exec rails assets:precompile
 
 # Stage 2: Final production stage
 FROM ruby:$RUBY_VERSION-slim as production
@@ -34,10 +32,10 @@ FROM ruby:$RUBY_VERSION-slim as production
 # Rails app lives here
 WORKDIR /rails
 
-# Install runtime packages
+# Install runtime dependencies
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    rm -rf /var/lib/apt/lists/*
 
 # Copy built artifacts from build stage
 COPY --from=build /usr/local/bundle /usr/local/bundle
@@ -55,7 +53,7 @@ RUN useradd rails --create-home --shell /bin/bash && \
 USER rails
 
 # Entrypoint prepares the database
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+ENTRYPOINT ["./bin/docker-entrypoint"]
 
 # Expose port for Rails server
 EXPOSE 3001
