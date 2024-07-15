@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    command: ./bin/rails server -b 0.0.0.0
+    volumes:
+      - .:/rails
+    ports:
+      - "3001:3001"
+    env_file:
+      - .env
+    environment:
+      RAILS_ENV: production
