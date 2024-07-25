@@ -6,16 +6,14 @@ class PokemonsController < ApplicationController
   self.use_second_api = true
 
   def search
-    name = params[:name]
-
-    name = name.to_s
+    name = params[:name].to_s
 
     if name.blank? || name.match(/\d/)
       render json: { error: "Invalid Pokémon name" }, status: :bad_request
       return
     end
 
-    result = fetch_pokemon_species_data(name)
+    result = pokemons_service.pokemon_species(name)
 
     if result.key?("error")
       render json: result, status: :bad_request
@@ -31,7 +29,7 @@ class PokemonsController < ApplicationController
 
   def species
     name = params[:name]
-    data = fetch_pokemon_species_data(name)
+    data = pokemons_service.pokemon_species(name)
     if data[:error]
       render json: { error: data[:error] }, status: :not_found
     else
@@ -46,24 +44,6 @@ class PokemonsController < ApplicationController
   end
 
   private
-
-  def fetch_pokemon_data(pokemon_name)
-    response = HTTParty.get("#{POKEMON_API}/#{pokemon_name}")
-    if response.code == 200
-      JSON.parse(response.body)
-    else
-      { error: "Pokémon not found" }
-    end
-  end
-
-  def fetch_pokemon_species_data(pokemon_name)
-    response = HTTParty.get("#{POKEMON_API}-species/#{pokemon_name}")
-    if response.code == 200
-      JSON.parse(response.body)
-    else
-      { error: "Pokémon not found" }
-    end
-  end
 
   def find_english_description(data)
     entry = data['flavor_text_entries'].find { |entry| entry['language']['name'] == 'en' }
