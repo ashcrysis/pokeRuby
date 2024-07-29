@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Users::RegistrationsController < Devise::RegistrationsController
   include RackSessionsFix
   respond_to :json
@@ -42,10 +40,10 @@ before_action :configure_sign_up_params, only: [:create]
   private
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:nome, :telefone, :cep, :rua, :numero, :complemento])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :phone, :postal_code, :street, :number, :complement])
   end
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :nome, :telefone, :cep, :rua, :numero, :complemento)
+    params.require(:user).permit(:email, :password, :name, :phone, :postal_code, :street, :number, :complement)
   end
 end

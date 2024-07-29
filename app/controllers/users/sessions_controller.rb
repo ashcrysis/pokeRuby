@@ -1,16 +1,13 @@
 class Users::SessionsController < Devise::SessionsController
   include RackSessionsFix
   respond_to :json
-  #skip_before_action :verify_authenticity_token
 
   private
-  def respond_with(current_user, _opts = {})
-    render json: {
-      status: {
-        code: 200, message: 'Logged in successfully.',
-        data: { user: UserSerializer.new(current_user).serializable_hash[:data][:attributes] }
-      }
-    }, status: :ok
+  def respond_with(resource, _opts = {})
+  render json: {
+    status: { code: 200, message: 'Logged in successfully.' },
+    data: UserSerializer.new(resource).serializable_hash
+  }
   end
 
   def respond_to_on_destroy
